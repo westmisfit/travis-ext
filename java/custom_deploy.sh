@@ -1,2 +1,2 @@
 echo "deploy with ares..."
-# ares
+# $HOME/ares
