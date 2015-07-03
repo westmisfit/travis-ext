@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 # public vars for all languages
-export PROJECT_DIR="${PROJECT_DIR-TRAVIS_BUILD_DIR}"
+export PROJECT_DIR="${PROJECT_DIR-$TRAVIS_BUILD_DIR}"
 
 # private vars
 TRAVIS_EXT_HOME="${TRAVIS_EXT_HOME-${HOME}/travis-ext}"
