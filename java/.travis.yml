@@ -8,13 +8,13 @@ env:
 
 before_install:
   - git clone --depth=50 --branch=develop https://github.com/westmisfit/travis-ext.git $TRAVIS_EXT_HOME
-  - $TRAVIS_EXT download_ares
+  - $TRAVIS_EXT install_ares
 install:
   - $TRAVIS_EXT maven_install
 script:
   - $TRAVIS_EXT build
   - $TRAVIS_EXT lint
   - $TRAVIS_EXT test
-  - $TRAVIS_EXT ares
+  - $TRAVIS_EXT ares_deploy
 after_script:
   - $TRAVIS_EXT coveralls
