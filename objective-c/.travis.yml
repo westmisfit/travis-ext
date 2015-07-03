@@ -4,18 +4,21 @@ osx_image: beta-xcode6.3   # choose your xcode version
 
 env:
   global:                  # set env variables for your build
-    - TRAVIS_EXT_HOME=$HOME/travis-ext                                                                # required.
-    - TRAVIS_EXT=$TRAVIS_EXT_HOME/travis-ext.sh                                                       # required.
-    - PROJECT_LANGUAGE=objective-c                                                                    # required.
-    - PROJECT_DIR=$TRAVIS_BUILD_DIR/Client/App/Prometheus                                             # optional. default is $TRAVIS_BUILD_DIR
-    - 'DEVELOPER_NAME="iPhone Distribution: MISFIT WEARABLES CORPORATION"'                            # required.
-    - CERT_DIR=$TRAVIS_BUILD_DIR/certs                                                                # required.
-    - PROFILE_DIR=$TRAVIS_BUILD_DIR/provisioning_profiles                                             # required.
-    - PROFILE_NAME=comMisfitwearablesPrometheusAdhoc                                                  # required.
-    - INFO_PLIST=Client/App/Prometheus/Prometheus/Prometheus-Info.plist                               # required.
-    - APP_NAME=Misfit                                                                                 # required.
-    - BUNDLE_DISPLAY_NAME=Misfit                                                                      # required.
-    - BUNDLE_IDENTIFIER=com.misfitwearables.Prometheus                                                # required.
+    - TRAVIS_EXT_HOME=$HOME/travis-ext                                            # required.
+    - TRAVIS_EXT=$TRAVIS_EXT_HOME/travis-ext.sh                                   # required.
+    - PROJECT_LANGUAGE=objective-c                                                # required.
+    - PROJECT_DIR=$TRAVIS_BUILD_DIR/Client/App/Prometheus                         # optional. default is $TRAVIS_BUILD_DIR
+    - 'DEVELOPER_NAME="iPhone Distribution: MISFIT WEARABLES CORPORATION"'        # required.
+    - CERT_DIR=$TRAVIS_BUILD_DIR/certs                                            # required.
+    - PROFILE_DIR=$TRAVIS_BUILD_DIR/provisioning_profiles                         # required.
+    - PROFILE_NAME=comMisfitwearablesPrometheusAdhoc                              # required.
+    - INFO_PLIST=Client/App/Prometheus/Prometheus/Prometheus-Info.plist           # required.
+    - APP_NAME=Misfit                                                             # required.
+    - BUNDLE_DISPLAY_NAME=Misfit                                                  # required.
+    - BUNDLE_IDENTIFIER=com.misfitwearables.Prometheus                            # required.
+    - AWS_ACCESS_KEY_ID=******                                                    # required.
+    # AWS_SECRET_ACCESS_KEY=[secure]
+    - secure: "****************"                                                  # required.
 
 before_install:
   - git clone --depth=50 --branch=develop https://github.com/westmisfit/travis-ext.git $TRAVIS_EXT_HOME
@@ -31,26 +34,9 @@ script:                    # build & lint & run tests
   - sh build.sh            # custom build script instead $TRAVIS_EXT build
   - $TRAVIS_EXT lint
   - $TRAVIS_EXT test
+after_success:
+  - $TRAVIS_EXT hockey_deploy
 after_script:
   - $TRAVIS_EXT remove_key
   - $TRAVIS_EXT coveralls
-before_deploy:
-  - $TRAVIS_EXT archive_hockey
-deploy:                    # deploy
-  provider: s3             # upload artifacts to AWS S3
-  access_key_id: AKIAISQD2KKR4SJKP5NQ
-  secret_access_key:
-    # use `travis encrypt 'YOUR_AWS_SECRET_KEY'` to get the encrypted value
-    secure: "OpFkgwFKs/NxOtcQgugAx+W5cDbCFgMSFh4Z+o7FDI1IxPfg5wcqGn35HrlEFWKxPs5cs+44nHKRq24G8lNEiceroNkeBYcqotl0VGM5KjoKeyMamOox9u8RV5i7u54NxZJICNiZEkLX4f2qC/IQ1LmtfJLT5+1yvsoJpQ2OQ6Q="
-  bucket: "misfit.sw.stg.epd-team"
-  local-dir: "hockey"
-  upload-dir: "hockey/${BUNDLE_IDENTIFIER}_${TRAVIS_REPO_SLUG}/build_${TRAVIS_BUILD_NUMBER}"
-  acl: public_read
-  on:
-    all_branches: true     # allow all branches to deploy
-after_deploy:
-  - $TRAVIS_EXT hockey_sync
 
-branches:         # limit branches to build, support blacklist and whitelist mode
-  only:           # whitelist
-    - travis

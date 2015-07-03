@@ -49,3 +49,10 @@ do
         break
     fi
 done
+
+echo "upload hockey dir to S3"
+aws s3 sync . "s3://${S3_HOCKEY_BUCKET_NAME}/hockey/${BUNDLE_IDENTIFIER}_${TRAVIS_REPO_SLUG}/build_${TRAVIS_BUILD_NUMBER}"
+
+echo "trigger hockey to sync S3 hockey dir..."
+curl http://hk.int.misfit.com/sync.php
+
