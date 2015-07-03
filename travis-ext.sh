@@ -1,6 +1,10 @@
 #!/bin/bash -e
 
-TRAVIS_EXT_HOME=${TRAVIS_EXT_HOME-${HOME}/travis-ext}
+# public vars for all languages
+export PROJECT_DIR="${PROJECT_DIR-TRAVIS_BUILD_DIR}"
+
+# private vars
+TRAVIS_EXT_HOME="${TRAVIS_EXT_HOME-${HOME}/travis-ext}"
 # TRAVIS_EXT_OPTIONS="x"  # set 'x' to print all shell scripts
 
 COMMAND="$1"

@@ -4,6 +4,8 @@ source $TRAVIS_EXT_HOME/$PROJECT_LANGUAGE/vars
 # PROFILE_DIR=
 # PROFILE_NAME=
 
+echo "add keys..."
+
 security create-keychain -p travis ios-build.keychain
 # security default-keychain -s ios-build.keychain
 security unlock-keychain -p travis ios-build.keychain
