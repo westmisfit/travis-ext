@@ -2,7 +2,7 @@ source $TRAVIS_EXT_HOME/$PROJECT_LANGUAGE/vars
 
 echo "archive output for hockey..."
 
-HOCKEY_DIR="./hockey"
+HOCKEY_DIR="$HOME/hockey"
 OUTPUT_DIR="$PROJECT_DIR"
 
 echo "create hockey dir..."
