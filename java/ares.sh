@@ -1,3 +1,4 @@
 source $TRAVIS_EXT_HOME/$PROJECT_LANGUAGE/vars
 
-echo "lint..."
+echo "deploy with ares..."
+# $HOME/ares

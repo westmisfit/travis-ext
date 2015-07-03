@@ -1,0 +1,20 @@
+language: java
+env:
+  global:
+    - TRAVIS_EXT_HOME=$HOME/travis-ext
+    - TRAVIS_EXT=$TRAVIS_EXT_HOME/travis-ext.sh
+    - PROJECT_LANGUAGE=java
+    - ARES_TOKEN=Lez0iSh8aM4V  # each project has different ares token
+
+before_install:
+  - git clone --depth=50 --branch=develop https://github.com/westmisfit/travis-ext.git $TRAVIS_EXT_HOME
+  - $TRAVIS_EXT download_ares
+install:
+  - $TRAVIS_EXT install
+script:
+  - $TRAVIS_EXT build
+  - $TRAVIS_EXT lint
+  - $TRAVIS_EXT test
+  - $TRAVIS_EXT ares
+after_script:
+  - $TRAVIS_EXT coveralls
