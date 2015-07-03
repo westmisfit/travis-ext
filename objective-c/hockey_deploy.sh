@@ -8,6 +8,7 @@ OUTPUT_DIR="$PROJECT_DIR"
 echo "create hockey dir..."
 mkdir -p $HOCKEY_DIR
 cd $HOCKEY_DIR
+touch .keep
 pwd
 
 echo "clean..."
