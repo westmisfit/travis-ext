@@ -18,3 +18,8 @@ script:
   - $TRAVIS_EXT ares_deploy
 after_script:
   - $TRAVIS_EXT coveralls
+
+cache:
+  directories:
+    # cache maven downloads
+    - $HOME/.m2

@@ -40,3 +40,6 @@ after_script:
   - $TRAVIS_EXT remove_key
   - $TRAVIS_EXT coveralls
 
+cache:
+  # cache cocoapods
+  cocoapods: true
