@@ -2,12 +2,13 @@ source $TRAVIS_EXT_HOME/$PROJECT_LANGUAGE/vars
 
 echo "archive output for hockey..."
 
-HOCKEY_DIR="$TRAVIS_BUILD_DIR/hockey"
+HOCKEY_DIR="./hockey"
 OUTPUT_DIR="$PROJECT_DIR"
 
 echo "create hockey dir..."
 mkdir -p $HOCKEY_DIR
 cd $HOCKEY_DIR
+pwd
 
 echo "clean..."
 rm -rf *.ipa *.plist *.html
