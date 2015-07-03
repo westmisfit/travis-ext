@@ -12,7 +12,7 @@ env:
     - CERT_DIR=$TRAVIS_BUILD_DIR/certs                                            # required.
     - PROFILE_DIR=$TRAVIS_BUILD_DIR/provisioning_profiles                         # required.
     - PROFILE_NAME=comMisfitwearablesPrometheusAdhoc                              # required.
-    - INFO_PLIST=Client/App/Prometheus/Prometheus/Prometheus-Info.plist           # required.
+    - INFO_PLIST=$PROJECT_DIR/Prometheus/Prometheus-Info.plist           # required.
     - APP_NAME=Misfit                                                             # required.
     - BUNDLE_DISPLAY_NAME=Misfit                                                  # required.
     - BUNDLE_IDENTIFIER=com.misfitwearables.Prometheus                            # required.
