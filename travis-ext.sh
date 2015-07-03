@@ -16,6 +16,15 @@ function help
         # run script by different language
         bash -e$TRAVIS_EXT_OPTIONS $TRAVIS_EXT_HOME/$PROJECT_LANGUAGE/help.sh
     fi
+
+    # if [[ -f "$TRAVIS_EXT_HOME/$PROJECT_LANGUAGE/.travis.yml" ]]; then
+    #     echo ""
+    #     echo "**************************************************"
+    #     echo "* example .travis.yml file for $PROJECT_LANGUAGE *"
+    #     echo "**************************************************"
+    #     echo ""
+    #     cat "$TRAVIS_EXT_HOME/$PROJECT_LANGUAGE/.travis.yml"
+    # fi
 }
 
 # verify environment variables
@@ -27,12 +36,12 @@ function verify_vars
     fi
 }
 
-if [[ "TRAVIS_EXT_HOME" = "" ]]; then
+if [[ "$TRAVIS_EXT_HOME" = "" ]]; then
     echo "Not setted 'TRAVIS_EXT_HOME'"
     exit 1
 fi
 
-if [[ "PROJECT_LANGUAGE" = "" ]]; then
+if [[ "$PROJECT_LANGUAGE" = "" ]]; then
     echo "Not setted 'PROJECT_LANGUAGE'"
     exit 1
 else
@@ -40,9 +49,10 @@ else
     verify_vars
 fi
 
-if [[ "COMMAND" = "" ]]; then
+if [[ "$COMMAND" = "" ]]; then
     # print help message if no command
     help
+    exit 1
 fi
 
 if [[ -f "$TRAVIS_EXT_HOME/$PROJECT_LANGUAGE/$COMMAND.sh" ]]; then
