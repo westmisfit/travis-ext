@@ -34,4 +34,9 @@ if [[ ! -f $HOME/infer/infer/infer/bin/infer ]]; then
 fi
 
 # find $INFER_HOME/infer-${INFER_VERSION} -name infer
-infer --version
+if infer --version; then
+    echo '------'
+    echo PATH=$PATH
+    echo '------'
+    $HOME/infer/infer/infer/bin/infer --version
+fi
