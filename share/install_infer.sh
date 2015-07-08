@@ -1,4 +1,4 @@
-set -ex
+source $TRAVIS_EXT_HOME/$PROJECT_LANGUAGE/vars
 
 function install_macos(){
     # because fbinfer removed the osx download link from https://github.com/facebook/infer/releases
@@ -10,7 +10,7 @@ function install_macos(){
 }
 
 function install_linux(){
-    local INFER_VERSION=0.2.0
+    local INFER_VERSION=0.1.1
 
     mkdir -p $HOME/infer
     cd $HOME/infer
@@ -34,8 +34,9 @@ if [[ ! -f $HOME/infer/infer/infer/bin/infer ]]; then
 fi
 
 # find $INFER_HOME/infer-${INFER_VERSION} -name infer
-if ! infer --version ; then
-    
+if which infer ; then
+    infer --version
+else
     echo '------'
     find $HOME/ -name infer
     
