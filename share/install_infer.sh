@@ -10,25 +10,27 @@ function install_macos(){
 }
 
 function install_linux(){
-    # INFER_VERSION=0.1.1
+    local INFER_VERSION=0.2.0
 
-    # mkdir -p $HOME/infer
-    # cd $HOME/infer
-    # curl -L -o infer-${INFER_VERSION}.tar.gz https://github.com/facebook/infer/archive/v${INFER_VERSION}.tar.gz
-    # tar xzf infer-${INFER_VERSION}.tar.gz
-    # ls -al
-    # mv infer-${INFER_VERSION} infer
-    # cd infer
-    # ls -al
-    # ls -al infer/bin/
-    # ./update-fcp.sh
-    # ls -al $HOME/infer
+    mkdir -p $HOME/infer
+    cd $HOME/infer
+    curl -L -o infer-${INFER_VERSION}.tar.gz https://github.com/facebook/infer/archive/v${INFER_VERSION}.tar.gz
+    tar xzf infer-${INFER_VERSION}.tar.gz
+    ls -al
+    mv infer-${INFER_VERSION} infer
+    cd infer
+    ls -al
+    ls -al infer/bin/
+    ./update-fcp.sh
+    ls -al $HOME/infer
 
-    true
+    # true
 }
 
 if [[ ! -f $HOME/infer/infer/infer/bin/infer ]]; then
-    install_macos
+    if [[ "$TRAVIS_OS_NAME" = "linux" ]]; then install_linux
+    elif [[ "$TRAVIS_OS_NAME" = "osx" ]]; then install_macos
+    fi
 fi
 
 # find $INFER_HOME/infer-${INFER_VERSION} -name infer
