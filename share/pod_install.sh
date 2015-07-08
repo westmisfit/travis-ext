@@ -1,4 +1,5 @@
 source $TRAVIS_EXT_HOME/$PROJECT_LANGUAGE/vars
 
-echo "lint..."
+echo "pod install dependencies..."
 cd $PROJECT_DIR
+pod install

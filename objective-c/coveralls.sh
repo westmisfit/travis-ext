@@ -1,4 +1,4 @@
 source $TRAVIS_EXT_HOME/$PROJECT_LANGUAGE/vars
 
-echo "lint..."
+echo "upload coveralls..."
 cd $PROJECT_DIR

@@ -1,0 +1,2 @@
+export ENABLE_ARES=${ENABLE_ARES-true}
+export ARES_SERVER=${ARES_SERVER-ares.int.misfit.com}
