@@ -36,13 +36,10 @@ fi
 # find $INFER_HOME/infer-${INFER_VERSION} -name infer
 if which infer ; then
     infer --version
-else
-    echo '------'
-    find $HOME/ -name infer
-    
-    echo '------'
-    echo PATH=$PATH
-    echo '------'
-    
+elif [[ -f "$HOME/infer/infer/infer/bin/infer" ]]; then
+    echo 'PATH is not setted for infer, please set PATH=$PAHT:$HOME/infer/infer/infer/bin.'
     $HOME/infer/infer/infer/bin/infer --version
+else
+    echo 'Install infer failed, can'\''t find infer.'
+    find $HOME/ -name infer
 fi
