@@ -10,36 +10,51 @@ function install_macos(){
 }
 
 function install_linux(){
-    local INFER_VERSION=0.1.1
-
     mkdir -p $HOME/infer
     cd $HOME/infer
+
+    sudo apt-get update
+    sudo apt-get upgrade
+    sudo apt-get install git openjdk-7-jdk m4 zlib1g-dev python-software-properties build-essential libgmp-dev libmpfr-dev libmpc-dev unzip
+    wget https://github.com/ocaml/opam/releases/download/1.2.2/opam-1.2.2-x86_64-Linux -O opam
+    chmod +x opam
+    ./opam init --comp=4.01.0 -y
+    eval `./opam config env`
+    ./opam install sawja.1.5 atdgen.1.5.0 javalib.2.3a extlib.1.5.4 -y
+
+    local INFER_VERSION=0.2.0
+
     curl -L -o infer-${INFER_VERSION}.tar.gz https://github.com/facebook/infer/archive/v${INFER_VERSION}.tar.gz
     tar xzf infer-${INFER_VERSION}.tar.gz
-    ls -al
-    mv infer-${INFER_VERSION} infer
+    # ls -al
+    ln -s infer-${INFER_VERSION} infer
     cd infer
-    ls -al
-    ls -al infer/bin/
-    ./update-fcp.sh
-    ls -al $HOME/infer
+    make -C infer java
+    
+    # ls -al
+    # ls -al infer/bin/
+    # ./update-fcp.sh
+    # ls -al $HOME/infer
 
     # true
 }
 
 if [[ ! -f $HOME/infer/infer/infer/bin/infer ]]; then
-    if [[ "$TRAVIS_OS_NAME" = "linux" ]]; then install_linux
-    elif [[ "$TRAVIS_OS_NAME" = "osx" ]]; then install_macos
+    if [[ "$TRAVIS_OS_NAME" = "linux" ]]; then
+        install_linux
+    elif [[ "$TRAVIS_OS_NAME" = "osx" ]]; then
+        install_macos
     fi
 fi
 
-# find $INFER_HOME/infer-${INFER_VERSION} -name infer
 if which infer ; then
     infer --version
 elif [[ -f "$HOME/infer/infer/infer/bin/infer" ]]; then
-    echo 'PATH is not setted for infer, please set PATH=$PAHT:$HOME/infer/infer/infer/bin.'
+    echo 'Warning: PATH is not setted for infer, please set PATH=$PAHT:$HOME/infer/infer/infer/bin.'
     $HOME/infer/infer/infer/bin/infer --version
+    exit 1
 else
-    echo 'Install infer failed, can'\''t find infer.'
-    find $HOME/ -name infer
+    echo 'Error: Install infer failed, can'\''t find infer.'
+    find $HOME/infer -name infer
+    exit 1
 fi
