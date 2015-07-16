@@ -13,6 +13,9 @@ function install_linux(){
     mkdir -p $HOME/infer
     cd $HOME/infer
 
+    echo "DEBIAN_FRONTEND=$DEBIAN_FRONTEND"
+    DEBIAN_FRONTEND=noninteractive
+
     sudo apt-get update
     sudo apt-get upgrade
     sudo apt-get install git openjdk-7-jdk m4 zlib1g-dev python-software-properties build-essential libgmp-dev libmpfr-dev libmpc-dev unzip
