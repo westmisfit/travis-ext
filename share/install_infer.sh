@@ -42,6 +42,12 @@ function install_linux(){
     # true
 }
 
+if which infer ; then
+    echo "infer has installed"
+    infer --version
+    exit 0
+fi
+
 if [[ ! -f $HOME/infer/infer/infer/bin/infer ]]; then
     if [[ "$TRAVIS_OS_NAME" = "linux" ]]; then
         install_linux
