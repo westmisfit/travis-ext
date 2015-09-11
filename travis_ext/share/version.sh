@@ -1,1 +1,1 @@
-echo "travis-ext version: 0.0.1"
+echo "travis-ext version: 0.1.0"
