@@ -1,0 +1,20 @@
+#!/usr/bin/env python
+
+import os
+import sys
+import subprocess
+import argparse
+
+import travis_ext
+
+if __name__ == "__main__":
+    TRAVIS_EXT = travis_ext.__dir__ + "/travis-ext.sh"
+    # print TRAVIS_EXT
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('command', help="command name")
+
+    args = parser.parse_args()
+    # print args.command
+    code = subprocess.call("{0} {1}".format(TRAVIS_EXT, args.command), shell=True)
+    exit(code)
