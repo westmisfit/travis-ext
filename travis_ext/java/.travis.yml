@@ -1,13 +1,10 @@
 language: java
 env:
   global:
-    - TRAVIS_EXT_HOME=$HOME/travis-ext
-    - TRAVIS_EXT=$TRAVIS_EXT_HOME/travis-ext.sh
-    - PROJECT_LANGUAGE=java
-    - ARES_TOKEN=Lez0iSh8aM4V  # each project has different ares token
+    - ARES_TOKEN="Lez0iSh8aM4V"
 
 before_install:
-  - git clone --depth=50 --branch=develop https://github.com/westmisfit/travis-ext.git $TRAVIS_EXT_HOME
+  - curl "https://s3.amazonaws.com/misfit.sw.stg.epd-team/downloads/travis_install.sh" | bash
   - $TRAVIS_EXT install_ares
 install:
   - $TRAVIS_EXT maven_install
@@ -21,5 +18,4 @@ after_script:
 
 cache:
   directories:
-    # cache maven downloads
-    - $HOME/.m2
+    - $HOME/.m2        # cache maven downloads
